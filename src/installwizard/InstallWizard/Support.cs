@@ -2354,8 +2354,8 @@ namespace InstallWizard
                 {
                     Trace.WriteLine("The subkey name is null");
                 }
-                // We only care about new-style VEN_XS devices
-                if (name.StartsWith("VEN_XS"))
+                // We only care about new-style VEN_XCPng devices
+                if (name.StartsWith("VEN_XCPng"))
                 {
                     RegistryKey subkeydetailskey = enumkey.OpenSubKey(name + @"\_");
                     string subkeydevice = (string)subkeydetailskey.GetValue("LocationInformation");
@@ -2379,7 +2379,7 @@ namespace InstallWizard
             string[] subkeynames = enumkey.GetSubKeyNames();
             foreach (string name in subkeynames)
             {
-                if (name.StartsWith("VEN_XS"))
+                if (name.StartsWith("VEN_XCPng"))
                 {
                     RegistryKey subkeydetailskey = enumkey.OpenSubKey(name + @"\_");
                     string[] detailsvalues = subkeydetailskey.GetValueNames();

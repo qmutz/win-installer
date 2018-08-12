@@ -18,27 +18,27 @@ namespace PVDriversRemoval
         // on a system. The ordering is deliberate, so that the
         // device tree(s) will be walked from children to root.
         private static readonly string[] pvHwIds = {
-            @"XENVIF\VEN_XS0001&DEV_NET",
-            @"XENVIF\VEN_XS0002&DEV_NET",
-            @"XENVIF\VEN_XSC000&DEV_NET",
+            @"XENVIF\VEN_XCPng0001&DEV_NET",
+            @"XENVIF\VEN_XCPng0002&DEV_NET",
+            @"XENVIF\VEN_XCPngC000&DEV_NET",
             @"XENVIF\DEVICE",
 
-            @"XENBUS\VEN_XS0001&DEV_VIF",
-            @"XENBUS\VEN_XS0002&DEV_VIF",
-            @"XENBUS\VEN_XSC000&DEV_VIF",
+            @"XENBUS\VEN_XCPng0001&DEV_VIF",
+            @"XENBUS\VEN_XCPng0002&DEV_VIF",
+            @"XENBUS\VEN_XCPngC000&DEV_VIF",
             @"XEN\VIF",
             @"XENBUS\CLASS&VIF",
             @"XENBUS\CLASS_VIF",
 
-            @"XENBUS\VEN_XS0001&DEV_VBD",
-            @"XENBUS\VEN_XS0002&DEV_VBD",
-            @"XENBUS\VEN_XSC000&DEV_VBD",
+            @"XENBUS\VEN_XCPng0001&DEV_VBD",
+            @"XENBUS\VEN_XCPng0002&DEV_VBD",
+            @"XENBUS\VEN_XCPngC000&DEV_VBD",
             @"XENBUS\CLASS&VBD",
             @"XENBUS\CLASS_VBD",
 
-            @"XENBUS\VEN_XS0001&DEV_IFACE",
-            @"XENBUS\VEN_XS0002&DEV_IFACE",
-            @"XENBUS\VEN_XSC000&DEV_IFACE",
+            @"XENBUS\VEN_XCPng0001&DEV_IFACE",
+            @"XENBUS\VEN_XCPng0002&DEV_IFACE",
+            @"XENBUS\VEN_XCPngC000&DEV_IFACE",
             @"XENBUS\CLASS&IFACE",
             @"XENBUS\CLASS_IFACE",
 

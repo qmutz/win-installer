@@ -35,8 +35,8 @@ namespace PVDevice
 
             foreach (string name in enumKey.GetSubKeyNames())
             {
-                // We only care about new-style VEN_XS devices
-                if (name.StartsWith("VEN_XS"))
+                // We only care about new-style VEN_XCPng devices
+                if (name.StartsWith("VEN_XCPng"))
                 {
                     RegistryKey subKeyDetailsKey = enumKey.OpenSubKey(name + @"\_");
 
