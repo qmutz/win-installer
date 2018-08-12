@@ -869,7 +869,7 @@ def msbuild(name, platform, debug = False):
     os.chdir('proj')
     status=shell('msbuild.bat')
     os.chdir(cwd)
-    if status != None:
+    if status != 0:
         print("Exit status",status,status)
         sys.exit(status)
 
@@ -911,13 +911,19 @@ def copyfiles(name, subproj, dest, arch="", debug=False):
 
 
 def shell(command):
-    print (command)
+    print(command)
     sys.stdout.flush()
-    pipe = os.popen(command, 'r', 1)
-    for line in pipe:
+	
+    with subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE) as p:
+        output, errors = p.communicate()
+    lines = output.splitlines()
+
+    for line in lines:
         print(line.rstrip())
 
-    return pipe.close()
+    p.wait()	
+		
+    return p.returncode
 
 def load_specific_manifest(brand_build):
     manifest_name = "manifestspecific"
