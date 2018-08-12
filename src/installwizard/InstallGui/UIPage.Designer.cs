@@ -131,7 +131,7 @@
             this.MaximumSize = new System.Drawing.Size(498, 378);
             this.MinimumSize = new System.Drawing.Size(498, 378);
             this.Name = "UIPage";
-            this.Text = "Citrix XenServer Tools Installer";
+            this.Text = "XCP-ng XenServer Tools Installer";
             this.Load += new System.EventHandler(this.UIPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

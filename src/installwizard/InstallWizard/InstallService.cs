@@ -52,7 +52,7 @@ using System.Management.Instrumentation;
 using System.Reflection;
 using Xenprep;
 
-[assembly: Instrumented(@"root\citrix\xenserver\agent")]
+[assembly: Instrumented(@"root\xcp-ng\xenserver\agent")]
 
 namespace InstallWizard
 {
@@ -622,7 +622,7 @@ namespace InstallWizard
                     {
                         if (InstallState.Installed)
                         {
-                            string installpath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Citrix\XenToolsInstaller", "InstalledFrom", "");
+                            string installpath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\XCP-ng\XenToolsInstaller", "InstalledFrom", "");
                             if (!installpath.Equals(""))
                             {
                                 Trace.WriteLine("Got drive path " + installpath);

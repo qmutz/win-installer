@@ -1572,7 +1572,7 @@ namespace InstallWizard
             }
             catch { }
             if (uimode > 2) {
-                Registry.SetValue(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run","CitrixXenAgentInstaller","\""+Application.StartupPath+"\\InstallGui.exe"+"\"");
+                Registry.SetValue(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run","XCP-ngXenAgentInstaller","\""+Application.StartupPath+"\\InstallGui.exe"+"\"");
                 Trace.WriteLine("setting install agent run subkey");
             }
 
@@ -1613,7 +1613,7 @@ namespace InstallWizard
                 try
                 {
 
-                    watcher = new ManagementEventWatcher(@"root\citrix\xenserver\agent", "SELECT * FROM CitrixXenServerInstallEvent");
+                    watcher = new ManagementEventWatcher(@"root\xcpng\xenserver\agent", "SELECT * FROM XCPngXenServerInstallEvent");
                     watcher.EventArrived += new EventArrivedEventHandler(watcher_EventArrived);
                     watcher.Start();
 
@@ -1701,11 +1701,11 @@ namespace InstallWizard
             string res;
             if (InstallService.is64BitOS() && (!InstallService.isWOW64()))
             {
-                res = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Citrix XenTools", "UninstallString", "");
+                res = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\XCP-ng XenTools", "UninstallString", "");
             }
             else
             {
-                res = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Citrix XenTools", "UninstallString", "");
+                res = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\XCP-ng XenTools", "UninstallString", "");
             }
             return res;
 
@@ -1744,7 +1744,7 @@ namespace InstallWizard
         {
             try
             {
-                if (DriverPackage.GetPciDeviceName() == "Citrix PV SCSI Host Adapter")
+                if (DriverPackage.GetPciDeviceName() == "XCP-ng PV SCSI Host Adapter")
                 {
                     return true;
                 }
@@ -1917,7 +1917,7 @@ namespace InstallWizard
         public static ManagementObject GetSession()
         {
             ManagementObject session = null;
-            ManagementClass mc = new ManagementClass(@"root\wmi", "CitrixXenStoreBase", null);
+            ManagementClass mc = new ManagementClass(@"root\wmi", "XCPngXenStoreBase", null);
 
             ManagementObjectCollection coll = mc.GetInstances();
 
@@ -1933,10 +1933,10 @@ namespace InstallWizard
                 throw new Exception("Xen Interface Base Not Found"); ;
 
             ManagementBaseObject inparam = bse.GetMethodParameters("AddSession");
-            inparam["ID"] = "Citrix Xen Install Wizard";
+            inparam["ID"] = "XCP-ng Xen Install Wizard";
             ManagementBaseObject outparam = bse.InvokeMethod("AddSession", inparam, null);
             UInt32 sessionid = (UInt32)outparam["SessionId"];
-            ManagementObjectSearcher objects = new ManagementObjectSearcher(@"root\wmi", "SELECT * From CitrixXenStoreSession WHERE SessionId=" + sessionid.ToString());
+            ManagementObjectSearcher objects = new ManagementObjectSearcher(@"root\wmi", "SELECT * From XCPngXenStoreSession WHERE SessionId=" + sessionid.ToString());
 
 
             coll = objects.Get();
@@ -2085,9 +2085,9 @@ namespace InstallWizard
                     && (pciDeviceName != "XenServer PV Bus (0002)") // XenServer Standard drivers 8.x
                     && (pciDeviceName != "XenServer PV Bus (0001)") // XenServer Standard drivers 8.x
                     && (pciDeviceName != "XenServer PV Bus (C000)") // XenServer Standard drivers 8.x
-                    && (pciDeviceName != "Citrix PV Bus") // Citrix XenServer Standard Drivers
-                    && (pciDeviceName != "Citrix PV SCSI Host Adapter") // Legacy Drivers
-                    && (pciDeviceName != "Citrix XenServer PV SCSI Host Adapter") // 5.5 Legacy Drivers
+                    && (pciDeviceName != "XCP-ng PV Bus") // Citrix XenServer Standard Drivers
+                    && (pciDeviceName != "XCP-ng PV SCSI Host Adapter") // Legacy Drivers
+                    && (pciDeviceName != "XCP-ng XenServer PV SCSI Host Adapter") // 5.5 Legacy Drivers
                     && (!string.IsNullOrEmpty(pciDeviceName)) //No device name found (we've probably deleted it)
                    ) 
                 {

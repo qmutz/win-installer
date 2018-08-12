@@ -40,7 +40,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("InstallWizard")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Citrix")]
+[assembly: AssemblyCompany("XCP-ng")]
 [assembly: AssemblyProduct("InstallWizard")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]

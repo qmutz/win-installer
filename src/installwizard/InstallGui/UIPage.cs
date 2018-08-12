@@ -46,7 +46,7 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.Security.Principal;
 
-[assembly: Instrumented(@"root\citrix\xenserver\agent")]
+[assembly: Instrumented(@"root\XCPng\xenserver\agent")]
 
 
 namespace InstallGui
@@ -82,7 +82,7 @@ namespace InstallGui
             ManagementObject service = null;
             public WmiInstallerService()
             {
-                ManagementClass mc = new ManagementClass(@"root\citrix\xenserver\agent", "CitrixXenServerInstallStatus", null);
+                ManagementClass mc = new ManagementClass(@"root\XCPng\xenserver\agent", "XCPngXenServerInstallStatus", null);
                 ManagementObjectCollection coll = null;
                 int counter = 0;
                 while (counter < 10000)

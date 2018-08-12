@@ -395,11 +395,11 @@ namespace Xenprep
 
             // MSIs to uninstall
             string[] msiNameList = {
-                "Citrix XenServer Windows Guest Agent",
-                "Citrix XenServer VSS Provider",
-                "Citrix Xen Windows x64 PV Drivers",
-                "Citrix Xen Windows x86 PV Drivers",
-                "Citrix XenServer Tools Installer"
+                "XCP-ng XenServer Windows Guest Agent",
+                "XCP-ng XenServer VSS Provider",
+                "XCP-ng Xen Windows x64 PV Drivers",
+                "XCP-ng Xen Windows x86 PV Drivers",
+                "XCP-ng XenServer Tools Installer"
             };
 
             while ((err = MsiEnumProducts(i, productCode)) == 0) // ERROR_SUCCESS
@@ -658,13 +658,13 @@ namespace Xenprep
         public static void UninstallXenLegacy() {
             try
             {
-                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\", true).DeleteSubKeyTree("Citrix XenTools");
+                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\", true).DeleteSubKeyTree("XCP-ng XenTools");
 
             }
             catch { }
             try
             {
-                HardUninstallFromReg(@"SOFTWARE\Citrix\XenTools");
+                HardUninstallFromReg(@"SOFTWARE\XCP-ng\XenTools");
             }
             catch { }
 
@@ -672,12 +672,12 @@ namespace Xenprep
             {
                 try
                 {
-                    Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\", true).DeleteSubKeyTree("Citrix XenTools");
+                    Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\", true).DeleteSubKeyTree("XCP-ng XenTools");
                 }
                 catch { }
                 try 
                 {
-                    HardUninstallFromReg(@"SOFTWARE\Wow6432Node\Citrix\XenTools");
+                    HardUninstallFromReg(@"SOFTWARE\Wow6432Node\XCP-ng\XenTools");
                 }
                 catch { }
             }

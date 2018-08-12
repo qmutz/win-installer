@@ -250,7 +250,7 @@ namespace PVDriversRemoval
             const string WOW6432NODE = @"\Wow6432Node";
             const string UNINSTALL =
                 @"\Microsoft\Windows\CurrentVersion\Uninstall";
-            const string CITRIX_XENTOOLS = @"\Citrix\XenTools";
+            const string CITRIX_XENTOOLS = @"\XCP-ng\XenTools";
             const string INSTALL_DIR = @"\Install_Dir";
 
             string rk1Path;
@@ -275,7 +275,7 @@ namespace PVDriversRemoval
                 Registry.LocalMachine.OpenSubKey(
                     rk1Path,
                     true
-                ).DeleteSubKeyTree("Citrix XenTools");
+                ).DeleteSubKeyTree("XCP-ng XenTools");
             }
             catch (ArgumentException) { }
 

@@ -94,7 +94,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				continue;
 			}
 
-			err = sprintf_s(PathName, MAX_PATH, "%s\\Citrix", Buffer);
+			err = sprintf_s(PathName, MAX_PATH, "%s\\XCP-ng", Buffer);
 			if (err <= 0 && errno != EEXIST) {
 				Warning("Unable to generate log path name");
 				continue;

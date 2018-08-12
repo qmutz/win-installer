@@ -37,7 +37,7 @@ using System.Windows.Forms;
 using System.Management;
 using System.Management.Instrumentation;
 
-[assembly: Instrumented(@"root\citrix\xenserver\agent")]
+[assembly: Instrumented(@"root\XCPng\xenserver\agent")]
 namespace UIEvent
 {
     static class Program

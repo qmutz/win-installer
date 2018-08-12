@@ -1303,6 +1303,7 @@ if __name__ == '__main__':
     
     generate_signing_script()
     generate_driver_wxs(outbuilds)
+    print("--------------------huhu-----------------------------------------")
     make_driver_msm(outbuilds) 
     
     make_mgmtagent_msi(outbuilds,signname)

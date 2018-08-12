@@ -38,11 +38,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("InstallGui")]
-[assembly: AssemblyDescription("XenServer PV Tool Install Wizard GUI")]
+[assembly: AssemblyDescription("XCP-ng PV Tool Install Wizard GUI")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Citrix")]
+[assembly: AssemblyCompany("XCP-ng")]
 [assembly: AssemblyProduct("InstallGui")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

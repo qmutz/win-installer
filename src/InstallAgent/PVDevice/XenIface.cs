@@ -46,7 +46,7 @@ namespace PVDevice
         {
             ManagementClass mc = new ManagementClass(
                 @"root\wmi",
-                "CitrixXenStoreBase",
+                "XCPngXenStoreBase",
                 null
             );
 
@@ -59,7 +59,7 @@ namespace PVDevice
             }
 
             ManagementBaseObject inparam = bse.GetMethodParameters("AddSession");
-            inparam["ID"] = "Citrix Xen Install Wizard";
+            inparam["ID"] = "XCP-ng Xen Install Wizard";
             ManagementBaseObject outparam = bse.InvokeMethod(
                 "AddSession",
                 inparam,
@@ -69,7 +69,7 @@ namespace PVDevice
             UInt32 sessionid = (UInt32)outparam["SessionId"];
             ManagementObjectSearcher objects = new ManagementObjectSearcher(
                 @"root\wmi",
-                "SELECT * From CitrixXenStoreSession WHERE SessionId=" +
+                "SELECT * From XCPngXenStoreSession WHERE SessionId=" +
                 sessionid.ToString()
             );
 
