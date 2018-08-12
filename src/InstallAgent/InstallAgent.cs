@@ -489,7 +489,7 @@ namespace InstallAgent
         // registry keys (both x64/x86)
         {
             const string SOFTWARE = @"SOFTWARE\";
-            const string XTINSTALLER = @"Citrix\XenToolsInstaller";
+            const string XTINSTALLER = @"XCP-ng\XenToolsInstaller";
             const string INSTALLSTATUS = "InstallStatus";
             string       xenToolsKey;
 

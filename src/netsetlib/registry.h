@@ -70,7 +70,7 @@
 
 #define ENUM_KEY "SYSTEM\\CurrentControlSet\\Enum"
 
-#define SOFTWARE_KEY "SOFTWARE\\Citrix"
+#define SOFTWARE_KEY "SOFTWARE\\XCP-ng"
 
 #define NETWORKSETTINGS \
 		SOFTWARE_KEY ## "\\XenToolsNetSettings"

@@ -723,7 +723,7 @@ namespace InstallWizard
         void copynic_toservice(string uuid, string device, uint luidindex, uint iftype)
         {
             RegistryKey serviceskey = Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\Services");
-            RegistryKey nics = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Citrix\\XenToolsNetSettings");
+            RegistryKey nics = Registry.LocalMachine.CreateSubKey("SOFTWARE\\XCP-ng\\XenToolsNetSettings");
             RegistryKey devicekey = nics.CreateSubKey(device);
             RegistryKey nsikey = Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\Control\\Nsi");
             copyregkey(serviceskey.OpenSubKey("NETBT\\Parameters\\Interfaces\\Tcpip_" + uuid), devicekey.CreateSubKey("NetBt"));
@@ -928,7 +928,7 @@ namespace InstallWizard
 
         static public void stopNetworkSettingCopying()
         {
-            using (RegistryKey store = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Citrix\\XenToolsNetSettings"))
+            using (RegistryKey store = Registry.LocalMachine.CreateSubKey("SOFTWARE\\XCP-ng\\XenToolsNetSettings"))
             {
                 store.SetValue("Status", "DontUpdate");
             }
@@ -942,7 +942,7 @@ namespace InstallWizard
                 Trace.WriteLine("Restoring network settings");
                 ProcessStartInfo start = new ProcessStartInfo();
                 start.Arguments = "/log /restore";
-                String driverinstalldir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\Software\\Citrix\\XenTools","Driver_Install_Dir", System.IO.Path.GetDirectoryName(Application.ExecutablePath)+"\\..");
+                String driverinstalldir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\Software\\XCP-ng\\XenTools", "Driver_Install_Dir", System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\..");
                 start.FileName = driverinstalldir + "\\netsettings\\QNetSettings.exe";
                 Trace.WriteLine("Using: " + start.FileName);
                 start.WindowStyle = ProcessWindowStyle.Hidden;
@@ -1513,10 +1513,10 @@ namespace InstallWizard
         public InstallerState() {
             if (InstallService.is64BitOS() && (!InstallService.isWOW64()))
             {
-                regpath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller";
+                regpath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller";
             }
             else {
-                regpath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller";
+                regpath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller";
             }
             Registry.SetValue(regpath, "InstallStatus", "Starting");
             try
@@ -1716,11 +1716,11 @@ namespace InstallWizard
             int res;
             if (InstallService.is64BitOS() && (!InstallService.isWOW64()))
             {
-                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenTools", "MajorVersion", "");
+                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenTools", "MajorVersion", "");
             }
             else
             {
-                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenTools", "MajorVersion", "");
+                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenTools", "MajorVersion", "");
             }
             return res;
         }
@@ -1730,11 +1730,11 @@ namespace InstallWizard
             int res;
             if (InstallService.is64BitOS() && (!InstallService.isWOW64()))
             {
-                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenTools", "MinorVersion", "");
+                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenTools", "MinorVersion", "");
             }
             else
             {
-                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenTools", "MinorVersion", "");
+                res = (int)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenTools", "MinorVersion", "");
             }
             return res;
         }

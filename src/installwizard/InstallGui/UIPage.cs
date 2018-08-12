@@ -477,12 +477,12 @@ namespace InstallGui
                 {
                     Trace.WriteLine("Active (cmd)");
                     passive = false;
-                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\Citrix\\XenToolsInstaller", "UIMode", "PassiveTilDone");
+                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\XCP-ng\\XenToolsInstaller", "UIMode", "PassiveTilDone");
                 }
             }
             try
             {
-                string ui = (string)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Citrix\\XenToolsInstaller", "UIMode", "Passive");
+                string ui = (string)Registry.GetValue("HKEY_CURRENT_USER\\Software\\XCP-ng\\XenToolsInstaller", "UIMode", "Passive");
                 if ( ui== "PassiveTilDone")
                 {
                     Trace.WriteLine("Passive Til Done");
@@ -492,7 +492,7 @@ namespace InstallGui
                 else if (ui == "Active") {
                     Trace.WriteLine("Active (user)");
                     passive = false;
-                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\Citrix\\XenToolsInstaller", "UIMode", "PassiveTilDone");
+                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\XCP-ng\\XenToolsInstaller", "UIMode", "PassiveTilDone");
                 }
             }
             catch

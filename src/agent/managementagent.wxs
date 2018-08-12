@@ -592,8 +592,8 @@
             <?if $(var.usecerts)=yes ?>
                 <Directory Id="certsdir" Name="Certs">
                     <Component Id="Certs" Guid="$(var.certs)">
-                        <File Id="CitrixSha1" Name="citrixsha1.cer" Source="$(var.RESOURCES_Bitmaps)\dummy1.cer" />
-                        <File Id="CitrixSha256" Name="citrixsha256.cer" Source="$(var.RESOURCES_Bitmaps)\dummy2.cer" />
+                        <File Id="CitrixSha1" Name="citrixsha1.cer" Source="$(var.RESOURCES_Bitmaps)\citrixsha1.cer" />
+                        <File Id="CitrixSha256" Name="citrixsha256.cer" Source="$(var.RESOURCES_Bitmaps)\citrixsha256.cer" />
                     </Component>
                 </Directory>
             <?endif?>

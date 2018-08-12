@@ -190,10 +190,10 @@ namespace InstallWizard
                 uint res = setupapi.CMP_WaitNoPendingInstallEvents(0);
                 if ( res == setupapi.WAIT_TIMEOUT || res == setupapi.WAIT_FAILED) {
                     InstallerState.ExistingDriverInstalling = true;
-                    Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller","existingDriverInstalling",1,RegistryValueKind.DWord);
+                    Registry.SetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller","existingDriverInstalling",1,RegistryValueKind.DWord);
                 }
                 Trace.WriteLine("check reg");
-                Object regval = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller","existingDriverInstalling",0);
+                Object regval = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "existingDriverInstalling", 0);
 
                 if (regval != null && ((int)regval)==1) {
                     Trace.WriteLine("set from reg");
@@ -209,23 +209,23 @@ namespace InstallWizard
                 if (is64BitOS())
                 {
                     Trace.WriteLine("64 Bit Install");
-                    installdir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "Install_Dir", Application.StartupPath);
-                    DriversMsi = new DriverPackage((string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath), Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixxendriversx64.msi");
-                    VssProvMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixvssx64.msi");
-                    AgentMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixguestagentx64.msi");
+                    installdir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "Install_Dir", Application.StartupPath);
+                    DriversMsi = new DriverPackage((string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath), Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixxendriversx64.msi");
+                    VssProvMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixvssx64.msi");
+                    AgentMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixguestagentx64.msi");
 
-                    InstallerNSIS = new NSISItem("Citrix XenTools", (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath));
+                    InstallerNSIS = new NSISItem("Citrix XenTools", (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath));
                 
                 }
                 else
                 {
                     Trace.WriteLine("32 Bit Install");
-                    installdir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "Install_Dir", Application.StartupPath); 
-                    DriversMsi = new DriverPackage((string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath), Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixxendriversx86.msi");
-                    VssProvMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixvssx86.msi");
-                    AgentMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixguestagentx86.msi");
+                    installdir = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "Install_Dir", Application.StartupPath);
+                    DriversMsi = new DriverPackage((string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath), Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixxendriversx86.msi");
+                    VssProvMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixvssx86.msi");
+                    AgentMsi = new MsiInstaller(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath) + "citrixguestagentx86.msi");
 
-                    InstallerNSIS = new NSISItem("Citrix XenTools", (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", "MSISourceDir", Application.StartupPath));
+                    InstallerNSIS = new NSISItem("Citrix XenTools", (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", "MSISourceDir", Application.StartupPath));
                 
                 }
                 installdir = "\"" + installdir + "\"";
@@ -612,7 +612,7 @@ namespace InstallWizard
 
                     try
                     {
-                        Registry.LocalMachine.OpenSubKey(@"HKEY_LOCAL_MACHINE\\SOFTWARE\\Citrix\\XenToolsInstaller", true).DeleteValue("existingDriverInstalling");
+                        Registry.LocalMachine.OpenSubKey(@"HKEY_LOCAL_MACHINE\\SOFTWARE\\XCP-ng\\XenToolsInstaller", true).DeleteValue("existingDriverInstalling");
                     }
                     catch
                     {
