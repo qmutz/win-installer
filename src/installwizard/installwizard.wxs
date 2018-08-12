@@ -58,11 +58,11 @@
       <?define certs= 'f056d833-6b1f-4c9d-9636-f26ff3a75292' ?>
       <?define pf="ProgramFilesFolder" ?>
 
-  <Product Name='Citrix XenServer Tools Installer' Id='$(var.ProductId)'
-           Language='1033' Codepage='1252' Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' Manufacturer='Citrix'
+  <Product Name='XCP-ng XenServer Tools Installer' Id='$(var.ProductId)'
+           Language='1033' Codepage='1252' Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' Manufacturer='XCP-ng'
            UpgradeCode='$(var.UpgradeCode)' >
-    <Package Id='*' Keywords='Citrix XenServer Windows Installer' Description='PV Tools Install Wizard'
-             Comments='Installs Citrix XenServer Tools' Manufacturer='Citrix'
+    <Package Id='*' Keywords='XCP-ng XenServer Windows Installer' Description='PV Tools Install Wizard'
+             Comments='Installs XCP-ng XenServer Tools' Manufacturer='XCP-ng'
              InstallerVersion='200' Languages='1033' Compressed='yes'
              InstallScope='perMachine'
              SummaryCodepage='1252' />
@@ -200,7 +200,7 @@
     <Property Id='HOSTTIME'>
         <RegistrySearch Id='RememberHostTime'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='HostTime'
                         Type='raw' />
     </Property>
@@ -257,7 +257,7 @@
     <Media Id='2' />
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='$(var.pf)'>
-        <Directory Id='CitrixDir' Name='Citrix'>
+        <Directory Id='XCPngDir' Name='XCP-ng'>
             <Directory Id='INSTALLDIR' Name='XenTools'>
                 <Directory Id='BRANDING' Name='Branding'>
                     <Component Id="BrandingCpy" Guid='*'>
@@ -273,12 +273,12 @@
                         <File Id="UninstallerFix" Compressed="no" DiskId='2' Source="$(var.FILENAME_legacyuninstallerfix)"/> 
                     </Component>
                     <Component Id="Msis" Guid="$(var.msiid)" >
-                        <File Id="Drivers32MSI" Compressed="no" DiskId="2" Source="CitrixXenDriversX86.msi" />
-                        <File Id="Drivers64MSI" Compressed="no" DiskId="2" Source="CitrixXenDriversX64.msi" />
-                        <File Id="Agent32MSI" Compressed="no" DiskId="2" Source="CitrixGuestAgentX86.msi" />
-                        <File Id="Agent64MSI" Compressed="no" DiskId="2" Source="CitrixGuestAgentX64.msi" />
-                        <File Id="VssProv32MSI" Compressed="no" DiskId="2" Source="CitrixVssX86.msi" />
-                        <File Id="VssProv4MSI" Compressed="no" DiskId="2" Source="CitrixVssX64.msi" />
+                        <File Id="Drivers32MSI" Compressed="no" DiskId="2" Source="XCP-ngXenDriversX86.msi" />
+                        <File Id="Drivers64MSI" Compressed="no" DiskId="2" Source="XCP-ngXenDriversX64.msi" />
+                        <File Id="Agent32MSI" Compressed="no" DiskId="2" Source="XCP-ngGuestAgentX86.msi" />
+                        <File Id="Agent64MSI" Compressed="no" DiskId="2" Source="XCP-ngGuestAgentX64.msi" />
+                        <File Id="VssProv32MSI" Compressed="no" DiskId="2" Source="XCP-ngVssX86.msi" />
+                        <File Id="VssProv4MSI" Compressed="no" DiskId="2" Source="XCP-ngVssX64.msi" />
                     </Component>
                     <?if $(var.usecerts)=yes ?>
                     <Component Id="Certs" Guid="$(var.certs)">
@@ -313,8 +313,8 @@
                             Type='ownProcess'
                             Vital='yes'
                             Name='XenPVInstall'
-                            DisplayName='Citrix XenServer Windows Installer'
-                            Description='Manages Citrix XenServer Tools Installation'
+                            DisplayName='XCP-ng XenServer Windows Installer'
+                            Description='Manages XCP-ng XenServer Tools Installation'
                             Start='auto'
                             Account='LocalSystem'
                             ErrorControl='ignore'
@@ -341,7 +341,7 @@
       </Directory>
             <Component Id='RegEntry' Guid="*">
                 <RegistryKey Root='HKLM'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='string' Name='Install_Dir' Value='[INSTALLDIR]' />
                     <RegistryValue Type='integer' Name='Mode' Value='[UILevel]' />
@@ -351,42 +351,42 @@
             </Component>
             <Component Id='InstallStatus' Guid="*" >
                 <RegistryKey Root='HKLM'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='string' Name='InstallStatus' Value='Starting' />
                 </RegistryKey> 
             </Component>
             <Component Id='RebootCtrl' Guid="$(var.RebootGuid)" >
                 <RegistryKey Root='HKLM'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='integer' Name='NoReboot' Value='1' />
                 </RegistryKey> 
             </Component>
             <Component Id='NoRebootCtrl' Guid="$(var.NoRebootGuid)" >
                 <RegistryKey Root='HKLM'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='integer' Name='NoReboot' Value='0' />
                 </RegistryKey> 
             </Component>
             <Component Id='UserRegEntry' Guid="$(var.ActiveGuid)">
                 <RegistryKey Root='HKCU'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='string' Name='UIMode' Value='Active' />
                 </RegistryKey> 
             </Component>
             <Component Id='NoUserRegEntry' Guid="$(var.PassiveGuid)">
                 <RegistryKey Root='HKCU'
-                    Key='Software\Citrix\XenToolsInstaller'
+                    Key='Software\XCP-ng\XenToolsInstaller'
                     Action='createAndRemoveOnUninstall'>
                     <RegistryValue Type='string' Name='UIMode' Value='Passive' />
                 </RegistryKey> 
             </Component>
             <Component Id="HostTime" Guid='*'>
                 <RegistryValue Root='HKLM'
-                    Key='Software\Citrix\XenTools'
+                    Key='Software\XCP-ng\XenTools'
                     Name='HostTime'
                     Value='[HOSTTIME]'
                     Type='string'/>
@@ -486,7 +486,7 @@
         </ScheduleReboot>
     </InstallExecuteSequence>
 
-    <CustomAction Id='CA_Set_ExitText' Property='WIXUI_EXITDIALOGOPTIONALTEXT' Value="When the Setup Wizard exits, the install wizard will begin and install the XenServer Windows PV Tools" />
+    <CustomAction Id='CA_Set_ExitText' Property='WIXUI_EXITDIALOGOPTIONALTEXT' Value="When the Setup Wizard exits, the install wizard will begin and install the XCP-ng Windows PV Tools" />
     <CustomAction Id='CA_Set_ExitTextLegacy' Property='WIXUI_EXITDIALOGOPTIONALTEXT' Value="" />
 
     <InstallUISequence>

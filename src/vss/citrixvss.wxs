@@ -45,11 +45,11 @@
     <?define ProductId = '*' ?>
     <?define XenVssComponentGUID = 'bb4ad259-a748-4a92-b265-5635cae68e42' ?>
 
-  <Product Name='Citrix XenServer VSS Provider' Id='$(var.ProductId)'
-           Language='1033' Codepage='1252' Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' Manufacturer='Citrix'
+  <Product Name='XCP-ng XenServer VSS Provider' Id='$(var.ProductId)'
+           Language='1033' Codepage='1252' Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' Manufacturer='XCP-ng'
            UpgradeCode='$(var.UpgradeCode)' >
-    <Package Id='*' Keywords='Citrix XenServer VSS Provider' Description='VSS Provider'
-             Comments='Installs Citrix XenServer VSS Provider' Manufacturer='Citrix'
+    <Package Id='*' Keywords='XCP-ng XenServer VSS Provider' Description='VSS Provider'
+             Comments='Installs XCP-ng XenServer VSS Provider' Manufacturer='XCP-ng'
              InstallerVersion='200' Languages='1033' Compressed='yes'
              InstallScope='perMachine'
              Platform='$(var.arch)'
@@ -83,7 +83,7 @@
     <Media Id='1' Cabinet='XenVssInstaller.cab' EmbedCab='yes' />
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder'>
-        <Directory Id='Citrix' Name='Citrix'>
+        <Directory Id='XCP-ng' Name='XCP-ng'>
           <Directory Id='INSTALLDIR' Name='XenTools'>
 				<Component Id='XenVssComponent' Guid='$(var.XenVssComponentGUID)'>
 				    <File Id='xenvss_dll' Name="XenVss.dll" DiskId='1' Source='xenvss\$(var.arch)\xenvss.dll' KeyPath='yes' />

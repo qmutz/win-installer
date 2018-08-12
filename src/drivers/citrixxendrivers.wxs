@@ -58,13 +58,13 @@
     <?define CurrentMicroVersion = '$(var.BRANDING_MICRO_VERSION_STR)' ?>
     <?define CurrentBuildVersion = '$(var.BRANDING_BUILD_NR_STR)' ?>
 
-  <Product Name='Citrix Xen Windows $(var.arch) PV Drivers' Id='$(var.ProductId)'
+  <Product Name='XCP-ng Xen Windows $(var.arch) PV Drivers' Id='$(var.ProductId)'
       Language='1033' Codepage='1252' 
       Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' 
-      Manufacturer='Citrix'
+      Manufacturer='XCP-ng'
       UpgradeCode='$(var.UpgradeCode)' >
-    <Package Id='*' Keywords='Citrix Xen Drivers' Description='Citrix Xen Windows Drivers'
-             Comments='Paravitualized Windows Drivers For Citrix XenServer' Manufacturer='Citrix'
+    <Package Id='*' Keywords='XCP-ng Xen Drivers' Description='XCP-ng Xen Windows Drivers'
+             Comments='Paravitualized Windows Drivers For XCP-ng XenServer' Manufacturer='XCP-ng'
              InstallerVersion='200' Languages='1033' Compressed='yes'
 
              Platform='$(var.arch)'
@@ -92,7 +92,7 @@
     <Property Id='HOSTTIME'>
         <RegistrySearch Id='RememberHostTime'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='HostTime'
                         Type='raw' 
                         Win64='no'/>
@@ -100,7 +100,7 @@
     <Property Id='HOSTTIME64'>
         <RegistrySearch Id='RememberHostTime64'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='HostTime'
                         Type='raw' 
                         Win64='yes'/>
@@ -121,7 +121,7 @@
     <Property Id='SAVEMAJOR' Value="#1">
         <RegistrySearch Id='SaveMajor'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='MajorVersion'
                         Type='raw' 
                         />
@@ -129,7 +129,7 @@
     <Property Id='SAVEMINOR' Value="#1">
         <RegistrySearch Id='SaveMinor'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='MinorVersion'
                         Type='raw' 
                         />
@@ -137,7 +137,7 @@
     <Property Id='SAVEMICRO' Value="#1">
         <RegistrySearch Id='SaveMicro'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='MicroVersion'
                         Type='raw' 
                         />
@@ -145,7 +145,7 @@
     <Property Id='SAVEBUILD' Value="#1">
         <RegistrySearch Id='SaveBuild'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='BuildVersion'
                         Type='raw' 
                         />
@@ -153,7 +153,7 @@
     <Property Id='SAVEINSTALL' Value="UNSET">
         <RegistrySearch Id='SaveInstall'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='Install_Dir'
                         Type='raw' 
                         />
@@ -161,7 +161,7 @@
     <Property Id='SAVEMSI' Value="#0">
         <RegistrySearch Id='SaveMSI'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='MsiGuestAgent'
                         Type='raw' 
                         />
@@ -186,14 +186,14 @@
     </Condition>
    
 
-    <Condition Message="These Citrix Xen PV Drivers for Windows require Windows Vista, Windows Server 2008 or Later">
+    <Condition Message="These XCP-ng Xen PV Drivers for Windows require Windows Vista, Windows Server 2008 or Later">
         <![CDATA[Installed OR (VersionNT>=600)]]>
     </Condition>
     <Media Id='1' Cabinet='XenDriversInstaller.cab' EmbedCab='yes' />
     <Directory Id='TARGETDIR' Name='SourceDir'>
         <?if $(var.arch)=x86?>
             <Directory Id='ProgramFilesFolder'>
-                <Directory Id='Citrix' Name='Citrix'>
+                <Directory Id='XCP-ng' Name='XCP-ng'>
                     <Directory Id='INSTALLDIR' Name='XenTools'>
                         
                         <Merge Id='Drivers' Language='1033' SourceFile='drivers$(var.arch).msm' DiskId='1' />
@@ -210,7 +210,7 @@
             </Directory>
         <?else?>
             <Directory Id='ProgramFiles64Folder'>
-                <Directory Id='Citrix' Name='Citrix'>
+                <Directory Id='XCP-ng' Name='XCP-ng'>
                     <Directory Id='INSTALLDIR' Name='XenTools'>
                         <Merge Id='Drivers' Language='1033' SourceFile='drivers$(var.arch).msm' DiskId='1' />
                         <Directory Id="netsettings" Name='netsettings'>
@@ -227,7 +227,7 @@
         <?endif?>
         <Component Id='RegEntry' Guid='*'>
             <RegistryKey Root='HKLM'
-                Key='Software\Citrix\XenTools' >
+                Key='Software\XCP-ng\XenTools' >
                 <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
                 <RegistryValue Type='string' Name='MajorVersion' Value='[SAVEMAJOR]' />
                 <RegistryValue Type='string' Name='MinorVersion' Value='[SAVEMINOR]' />
@@ -240,7 +240,7 @@
         </Component>
         <Component Id='RegEntry32' Guid='3a428079-00d8-4c55-b314-321e757ff988' Win64='no'>
             <RegistryKey Root='HKLM'
-                Key='Software\Citrix\XenTools' >
+                Key='Software\XCP-ng\XenTools' >
                 <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
             </RegistryKey>
         </Component>

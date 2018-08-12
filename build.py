@@ -353,7 +353,7 @@ def callfnout(cmd):
     if ret != 0:
         raise(Exception("Error %d in : %s" % (ret, cmd)))
     print("------------------------------------------------------------")
-    return output.decode('utf-8')
+    return output #.decode('utf-8')
 
 
 def callfn(cmd):
@@ -1158,7 +1158,7 @@ if __name__ == '__main__':
         os.environ['BUILD_NUMBER'] = '0'
 
     if 'UPDATE_URL' not in os.environ.keys():
-        os.environ['UPDATE_URL'] = "http://fake.update.url/"
+        os.environ['UPDATE_URL'] = ""
 
 
 
@@ -1309,7 +1309,7 @@ if __name__ == '__main__':
 
     record_version_details()
 
-    archive_build_input(archiveSrc)
+    #archive_build_input(archiveSrc)
 
-    perform_autocommit()
+    #perform_autocommit()
 

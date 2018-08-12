@@ -232,14 +232,14 @@
     </Property>
     <Property Id="XENTOOLSEXISTS">
         <RegistrySearch Id="XenToolsExists" Root="HKLM" 
-            Key="Software\Citrix\XenTools"
+            Key="Software\XCP-ng\XenTools"
             Name="MajorVersion"
             Type="raw" 
             Win64="no" />
     </Property>
     <Property Id="XENTOOLSISMSI">
         <RegistrySearch Id="XenToolsIsMsi" Root="HKLM" 
-            Key="Software\Citrix\XenTools"
+            Key="Software\XCP-ng\XenTools"
             Name="MsiGuestAgent"
             Type="raw" 
             />
@@ -261,7 +261,7 @@
     <Property Id='HOSTTIME'>
         <RegistrySearch Id='RememberHostTime'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='HostTime'
                         Type='raw' 
                         Win64='no'/>
@@ -269,7 +269,7 @@
     <Property Id='HOSTTIME64'>
         <RegistrySearch Id='RememberHostTime64'
                         Root='HKLM'
-                        Key='SOFTWARE\Citrix\XenTools'
+                        Key='SOFTWARE\XCP-ng\XenTools'
                         Name='HostTime'
                         Type='raw' 
                         Win64='yes'/>
@@ -284,7 +284,7 @@
       <Property Id="REGAUTOUPDATE">
           <RegistrySearch Id="RegAutoUpdateSearch"
               Root='HKLM'
-              Key='Software\Citrix\XenTools'
+              Key='Software\XCP-ng\XenTools'
               Name='DisableAutoUpdate'
               Type="raw" 
           />
@@ -302,7 +302,7 @@
       <Property Id="REGIDENTIFY" Value="XXX">
           <RegistrySearch Id="RegIdentifySearch"
               Root='HKLM'
-              Key='Software\Citrix\XenTools\AutoUpdate'
+              Key='Software\XCP-ng\XenTools\AutoUpdate'
               Name='Identify'
               Type="raw" 
               />
@@ -332,7 +332,7 @@
       <Property Id="REGDRIVERUPDATE" Value="XXX">
           <RegistrySearch Id="RegDriverUpdateSearch"
               Root='HKLM'
-              Key='Software\Citrix\XenTools\AutoUpdate'
+              Key='Software\XCP-ng\XenTools\AutoUpdate'
               Name='InstallDrivers'
               Type="raw" 
               />
@@ -535,7 +535,7 @@
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id="SystemFolder" Name="SystemFolder" />
       <Directory Id='$(var.pf)'>
-        <Directory Id='Citrix' Name='$(var.BRANDING_manufacturer)'>
+        <Directory Id='XCPng' Name='$(var.BRANDING_manufacturer)'>
           <Directory Id='INSTALLDIR' Name='$(var.BRANDING_shortTools)'>
             <Directory Id='BRANDING' Name='Branding'>
                 <Component Id="BrandingCpy" Guid='*'>
@@ -592,8 +592,8 @@
             <?if $(var.usecerts)=yes ?>
                 <Directory Id="certsdir" Name="Certs">
                     <Component Id="Certs" Guid="$(var.certs)">
-                        <File Id="CitrixSha1" Name="citrixsha1.cer" Source="$(var.RESOURCES_Bitmaps)\citrixsha1.cer" />
-                        <File Id="CitrixSha256" Name="citrixsha256.cer" Source="$(var.RESOURCES_Bitmaps)\citrixsha256.cer" />
+                        <File Id="CitrixSha1" Name="citrixsha1.cer" Source="$(var.RESOURCES_Bitmaps)\dummy1.cer" />
+                        <File Id="CitrixSha256" Name="citrixsha256.cer" Source="$(var.RESOURCES_Bitmaps)\dummy2.cer" />
                     </Component>
                 </Directory>
             <?endif?>
@@ -675,7 +675,7 @@
      
       <Component Id='RegEntry' Guid="$(var.RegEntryGuid)">
           <RegistryKey Root='HKLM'
-              Key='Software\Citrix\XenTools' >
+              Key='Software\XCP-ng\XenTools' >
               <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
               <RegistryValue Type='integer' Name='MajorVersion' Value='$(var.CurrentMajorVersion)' />
               <RegistryValue Type='integer' Name='MinorVersion' Value='$(var.CurrentMinorVersion)' />
@@ -699,12 +699,12 @@
       </Component>
       <Component Id='RegEntry32' Guid='3a428079-00d8-4c55-b314-321e757ff988' Win64='no'>
           <RegistryKey Root='HKLM'
-              Key='Software\Citrix\XenTools' >
+              Key='Software\XCP-ng\XenTools' >
               <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
           </RegistryKey>
       </Component>
       <Component Id="AutoUpdateReg" Guid="*">
-          <RegistryKey Root="HKLM" Key='Software\Citrix\XenTools\AutoUpdate'>
+          <RegistryKey Root="HKLM" Key='Software\XCP-ng\XenTools\AutoUpdate'>
               <RegistryValue Type="string" Name="InstallDrivers" Value='[ALLOWDRIVERUPDATE]' />
               <RegistryValue Type="string" Name="Identify" Value='[IDENTIFYAUTOUPDATE]' />
           </RegistryKey>
@@ -733,18 +733,18 @@
               Key='$(var.BRANDING_installAgentRegKey)'
               Action="removeOnUninstall" />
           <RemoveRegistryKey Root="HKLM"
-              Key='Software\Citrix\XenToolsInstaller'
+              Key='Software\XCP-ng\XenToolsInstaller'
               Action="removeOnInstall" />
           <RemoveRegistryKey Root="HKLM"
-              Key='Software\Citrix\XenToolsInstaller'
+              Key='Software\XCP-ng\XenToolsInstaller'
               Action="removeOnUninstall" />
       </Component>
       <Component Id="InstallAgentReg32" Guid="47883399-450c-40a4-bf4f-55f7a1515877">
           <RemoveRegistryKey Root="HKLM"
-              Key='Software\Wow6432Node\Citrix\XenToolsInstaller'
+              Key='Software\Wow6432Node\XCP-ng\XenToolsInstaller'
               Action="removeOnInstall" />
           <RemoveRegistryKey Root="HKLM"
-              Key='Software\Wow6432Node\Citrix\XenToolsInstaller'
+              Key='Software\Wow6432Node\XCP-ng\XenToolsInstaller'
               Action="removeOnUninstall" />
       </Component>
 

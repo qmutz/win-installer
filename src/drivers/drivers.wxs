@@ -63,7 +63,7 @@
 
   <Module Id='XenifaceModule' Language='1033' Version='1.0.0.0'>
     <Package Id='6F544704-0FDA-49fd-98B0-DD388944F3DA' Keywords='XenIface' Description='XenIface Installer'
-     Comments='Installs Xen WMI Interface Driver' Manufacturer='Citrix'
+     Comments='Installs Xen WMI Interface Driver' Manufacturer='XCP-ng'
      InstallerVersion='200' Languages='1033' 
      SummaryCodepage='1252' />
 
