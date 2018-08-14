@@ -68,7 +68,7 @@
     <?endif?>
     <?define certs= 'f056d833-6b1f-4c9d-9636-f26ff3a75292' ?>
 
-  <Product Name='$(var.Brand) $(var.Product) $(var.Agent)' Id='$(var.ProductId)'
+  <Product Name='$(var.Product) $(var.Agent)' Id='$(var.ProductId)'
            Language='$(var.BRANDING_language)' Codepage='1252' Version='$(var.CurrentMajorVersion).$(var.CurrentMinorVersion).$(var.CurrentBuildVersion)' Manufacturer='$(var.Brand)'
            UpgradeCode='$(var.UpgradeCode)' >
     <Package Id='*' Keywords='$(var.Brand) $(var.Product) $(var.Agent)' Description='$(var.Agent)'
@@ -94,7 +94,7 @@
 
 
     <UI Id="MyUI">
-        <Dialog Id="InstallChoicesDlg" Width="370" Height="270" Title="[ProductName] $(var.BRANDING_setupString)" >
+        <Dialog Id="InstallChoicesDlg" Width="370" Height="270" Title="[ProductName] XX $(var.BRANDING_setupString)" >
             <Control Id="BannerBmp" Type="Bitmap" Text="WixUI_Bmp_Banner" X="0" Y="0" Width="370" Height="44" />
             <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}$(var.BRANDING_installAndUpdateTitle)" />
             <Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_installAndUpdateDesc)" />
@@ -102,7 +102,7 @@
             <Control Id="TextNow" Type="Text" X="20" Y="60" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_ioDesc)" />
             <Control Id="InstallNow" Type="CheckBox" CheckBoxValue="1" Property="InstallDriversGUI" Text="$(var.BRANDING_ioInstall)" X="20" Y="75" Width="290" Height="15" />
 
-            <Control Id="TextAuto" Type="Text" X="20" Y="100" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_mgmtDesc)" NoWrap="no" />
+            <!-- <Control Id="TextAuto" Type="Text" X="20" Y="100" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_mgmtDesc)" NoWrap="no" />
             <Control Id="AutoUpdate" Type="ComboBox" ComboList="yes" X="20" Y="115" Width="290" Height="30" Property="ALLOWAUTOUPDATE" >
                 <ComboBox Property="ALLOWAUTOUPDATE">
                     <ListItem Text="$(var.BRANDING_mgmtAllow)" Value="YES"/>
@@ -122,8 +122,8 @@
                 <Condition Action="disable">ALLOWAUTOUPDATE="NO"</Condition>
                 <Condition Action="enable">ALLOWAUTOUPDATE="YES"</Condition>
             </Control>
-            <Control Id="AnonymousUsage" Type="CheckBox" CheckBoxValue="1" Property="IdentifyCheck" Text="$(var.BRANDING_anonymousUsage)" X="20" Y="200" Width="290" Height="15" />
-            <Control Id="TextDisclaim" Type="Text" X="20" Y="220" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_updDisclaim)" NoWrap="no" />
+            <Control Id="AnonymousUsage" Type="CheckBox" CheckBoxValue="0" Property="IdentifyCheck" Text="$(var.BRANDING_anonymousUsage)" X="20" Y="200" Width="290" Height="15" />
+            <Control Id="TextDisclaim" Type="Text" X="20" Y="220" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="$(var.BRANDING_updDisclaim)" NoWrap="no" /> -->
             <Control Id="Next" Text="!(loc.WixUINext)" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" >
                 <Publish Event="NewDialog" Value="VerifyReadyDlg"></Publish>
             </Control>
@@ -277,7 +277,7 @@
 
     <!-- Parameters -->
     <!-- -DALLOWAUTOUPDATE[=YES/NO] -->
-      <Property Id="ALLOWAUTOUPDATE" Value="MAYBE" />
+      <Property Id="ALLOWAUTOUPDATE" Value="NO" />
       <CustomAction Id="brandAutoUpdate" Property="ALLOWAUTOUPDATE" Value="$(var.BRANDING_allowAutoUpdate)" />
       <CustomAction Id="yesAutoUpdate" Property="ALLOWAUTOUPDATE" Value="YES" />
       <CustomAction Id="noAutoUpdate" Property="ALLOWAUTOUPDATE" Value="NO" />
@@ -293,10 +293,10 @@
       <CustomAction Id="noRegAutoUpdate" Property="DISABLEAUTOUPDATE" Value="1" />
 
     <!-- -DIDENTIFYAUTOUPDATE [=YES/NO] -->
-      <Property Id="IDENTIFYAUTOUPDATE" Value="MAYBE" />
+      <Property Id="IDENTIFYAUTOUPDATE" Value="NO" />
       <CustomAction Id="yesIdentify" Property="IDENTIFYAUTOUPDATE" Value="YES" />
       <CustomAction Id="noIdentify" Property="IDENTIFYAUTOUPDATE" Value="NO" />
-      <Property Id="IdentifyCheck" Value="1" />
+      <Property Id="IdentifyCheck" Value="0" />
       <CustomAction Id="yesIdentifyGUI" Property="IdentifyCheck" Value="1" />
       <CustomAction Id="noIdentifyGUI" Property="IdentifyCheck" Value="" />
       <Property Id="REGIDENTIFY" Value="XXX">
@@ -327,7 +327,7 @@
       </Property>
       <CustomAction Id="regDriverInstall" Property="ALLOWDRIVERINSTALL" Value="[REGDRIVERINSTALL]" />
     <!-- -DALLOWDRIVERUPDATE[=YES/NO] -->
-      <Property Id="ALLOWDRIVERUPDATE" Value="MAYBE" />
+      <Property Id="ALLOWDRIVERUPDATE" Value="NO" />
       <CustomAction Id="brandDriverUpdate" Property="ALLOWDRIVERUPDATE" Value="$(var.BRANDING_allowDriverUpdate)" />
       <Property Id="REGDRIVERUPDATE" Value="XXX">
           <RegistrySearch Id="RegDriverUpdateSearch"
@@ -621,7 +621,7 @@
                       Wait='yes' />
               </Component>
 
-              <Component Id="InstallService" Guid="*">
+            <!--   <Component Id="InstallService" Guid="*">
                   <File Id='InstallAgent.exe' Name='InstallAgent.exe' Source="InstallAgent\InstallAgent.exe" />
                   <ServiceInstall Id='InstallServiceInstaller'
                       Type='ownProcess'
@@ -643,7 +643,7 @@
                       Remove='uninstall' 
                       Name='$(var.BRANDING_installAgentShort)'
                       Wait='yes' />
-              </Component>
+              </Component> -->
 
               <Component Id="DifXAPIDLL64" Guid="*">
                   <File Id="difxapi64" Name="difxapi64.dll" Source="$(env.KIT)\Redist\DIFx\DIFxAPI\x64\difxapi.dll" />
@@ -703,12 +703,12 @@
               <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
           </RegistryKey>
       </Component>
-      <Component Id="AutoUpdateReg" Guid="*">
+     <!--  <Component Id="AutoUpdateReg" Guid="*">
           <RegistryKey Root="HKLM" Key='Software\XCP-ng\XenTools\AutoUpdate'>
               <RegistryValue Type="string" Name="InstallDrivers" Value='[ALLOWDRIVERUPDATE]' />
               <RegistryValue Type="string" Name="Identify" Value='[IDENTIFYAUTOUPDATE]' />
           </RegistryKey>
-      </Component>
+      </Component> -->
       <Component Id="InstallAgentReg" Guid="15382399-a381-4ff1-8f8d-10ab8a31512e">
           <RegistryKey Root="HKLM"
               Key='$(var.BRANDING_installAgentRegKey)'>
@@ -776,8 +776,8 @@
             <ComponentRef Id="InstallAgentReg32" />
         <?endif ?>
         <ComponentRef Id='InstallAgentReg'/>
-        <ComponentRef Id='InstallService' />
-        <ComponentRef Id='AutoUpdateReg' />
+        <!-- <ComponentRef Id='InstallService' /> -->
+        <!-- <ComponentRef Id='AutoUpdateReg' /> -->
     </Feature>
     <?if $(sys.BUILDARCH)=x86 ?>
         <Feature Id="NotUsed" Level='0'>

@@ -691,89 +691,6 @@ def make_driver_msm(pack):
     callfn([wix("light.exe"), "installer\\drivergenx86.wixobj","-darch=x86","-ext","WixUtilExtension.dll","-b",pack,"-o","installer\\drivergenx86.msm"])
 
 
-def make_oldmsi_installers(pack, signname):
-
-
-    wix=lambda f: os.environ['WIX']+"bin\\"+f
-    bitmaps = ".\\src\\bitmaps"
-
-    
-    if (all_drivers_signed) :
-        use_certs='no'
-    else:
-        use_certs='yes'
-
-    src = ".\\src\\agent"
-    
-    src = ".\\src\\drivers"
-    callfn([wix("candle.exe"),src+"\\drivers.wxs","-arch","x64","-darch=x64","-ext","WixDifxAppExtension.dll", "-o", "installer\\driversx64.wixobj"])
-    callfn([wix("light.exe"), "installer\\driversx64.wixobj","-darch=x64",wix("difxapp_x64.wixlib"),"-ext","WixUtilExtension.dll","-ext","WixDifxAppExtension.dll","-b",pack,"-o","installer\\driversx64.msm"])
-#
-    callfn([wix("candle.exe"),src+"\\drivers.wxs","-darch=x86","-ext","WixDifxAppExtension.dll", "-o", "installer\\driversx86.wixobj"])
-    callfn([wix("light.exe"), "installer\\driversx86.wixobj","-darch=x86",wix("difxapp_x86.wixlib"),"-ext","WixUtilExtension.dll","-ext","WixDifxAppExtension.dll","-b",pack,"-o","installer\\driversx86.msm"])
-#
-    callfn([wix("candle.exe"), src+"\\citrixxendrivers.wxs", "-arch","x64", "-darch=x64", "-o", "installer\\citrixxendrivers64.wixobj", "-I"+include, "-dBitmaps="+bitmaps])
-    callfn([wix("light.exe"), "installer\\citrixxendrivers64.wixobj", "-darch=x64","-b", ".\\installer", "-o", "installer\\citrixxendriversx64.msi","-b",pack, "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixxendriversx64.msi", signname, signstr=signstr)
-#
-    callfn([wix("candle.exe"), src+"\\citrixxendrivers.wxs", "-darch=x86", "-o", "installer\\citrixxendrivers64.wixobj", "-I"+include, "-dBitmaps="+bitmaps])
-    callfn([wix("light.exe"), "installer\\citrixxendrivers64.wixobj", "-darch=x86","-b", ".\\installer", "-o", "installer\\citrixxendriversx86.msi","-b",pack, "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixxendriversx86.msi", signname, signstr=signstr)
-#
-    src = ".\\src\\vss"
-#    
-    callfn([wix("candle.exe"), src+"\\citrixvss.wxs", "-arch","x86", "-darch=x86", "-o", "installer\\citrixvssx86.wixobj", "-I"+include, "-dBitmaps="+bitmaps])
-    callfn([wix("light.exe"), "installer\\citrixvssx86.wixobj", "-darch=x86", "-b", ".\\installer", "-o", "installer\\citrixvssx86.msi", "-b", pack, "-ext","WixUtilExtension.dll", "-cultures:en-us", "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixvssx86.msi", signname, signstr=signstr)
-#
-    callfn([wix("candle.exe"), src+"\\citrixvss.wxs", "-arch","x86", "-darch=x64", "-o", "installer\\citrixvssx64.wixobj", "-I"+include, "-dBitmaps="+bitmaps])
-    callfn([wix("light.exe"), "installer\\citrixvssx64.wixobj", "-darch=x64", "-b", ".\\installer", "-o", "installer\\citrixvssx64.msi", "-b", pack, "-ext","WixUtilExtension.dll", "-cultures:en-us", "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixvssx64.msi", signname, signstr=signstr)
-#
-#
-    src = ".\\src\\agent"
-
-    
-    callfn([wix("candle.exe"), src+"\\citrixguestagent.wxs", "-arch","x86", "-darch=x86", "-o", "installer\\citrixguestagentx86.wixobj", "-ext", "WixNetFxExtension.dll", "-I"+include, "-dBitmaps="+bitmaps])
-    callfn([wix("light.exe"), "installer\\citrixguestagentx86.wixobj", "-darch=x86", "-b", ".\\installer", "-o", "installer\\citrixguestagentx86.msi", "-b", pack, "-ext", "WixNetFxExtension.dll", "-ext", "WixUiExtension", "-cultures:en-us", "-dWixUILicenseRtf="+src+"\\..\\bitmaps\\EULA_DRIVERS.rtf", "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixguestagentx86.msi", signname, signstr=signstr)
-#
-    callfn([wix("candle.exe"), src+"\\citrixguestagent.wxs", "-arch","x64", "-darch=x64", "-o", "installer\\citrixguestagentx64.wixobj", "-ext", "WixNetFxExtension.dll", "-I"+include, "-dBitmaps="+bitmaps])
-
-
-    callfn([wix("light.exe"), "installer\\citrixguestagentx64.wixobj", "-darch=x64", "-b", ".\\installer", "-o", "installer\\citrixguestagentx64.msi", "-b", pack, "-ext", "WixNetFxExtension.dll", "-ext", "WixUiExtension", "-cultures:en-us", "-dWixUILicenseRtf="+src+"\\..\\bitmaps\\EULA_DRIVERS.rtf", "-sw1076"])
-    if signfiles:
-        sign("installer\\citrixguestagentx64.msi", signname, signstr=signstr)
-    src = ".\\src\\installwizard"
-    bitmaps = ".\\src\\bitmaps"
-    
-    
-    callfn([wix("candle.exe"), src+"\\installwizard.wxs",  "-o", "installer\\installwizard.wixobj", "-ext", "WixUtilExtension", "-ext", "WixUIExtension", "-I"+include, "-dBitmaps="+bitmaps, "-dusecerts="+use_certs])
-    
-    # We put a blank file in called XenLegacy.Exe - this doesn't get sucked
-    # into the installer, but it is needed to keep light happy (XenLegacy.exe
-    # will exentually be sourced from the original build tree)
-
-    f = open("installer\\"+branding.filenames['legacy'],"w")
-    f.write("DUMMY FILE")
-    f.close()
-    f = open("installer\\"+branding.filenames['legacyuninstallerfix'],"w")
-    f.write("DUMMY FILE")
-    f.close()
-   
-    callfn([wix("light.exe"), "installer\\installwizard.wixobj", "-b", ".\\installer", "-o", "installer\\installwizard.msi", "-b", pack, "-ext", "WixUtilExtension.dll", "-ext", "WixNetFxExtension.dll", "-ext", "WixUiExtension", "-cultures:en-us", "-dWixUILicenseRtf="+src+"\\..\\bitmaps\\EULA_DRIVERS.rtf", "-sw1076"])
-
-    if signfiles:
-        sign("installer\\installwizard.msi", signname, signstr=signstr)
-    
-    # Remove XenLegacy.Exe so that we don't archive the dummy file
-    os.remove("installer\\"+branding.filenames['legacy'])    
-    os.remove("installer\\"+branding.filenames['legacyuninstallerfix'])    
 
 def setup_brandsat_dll(path,culture):
     DLL_SUFIX = ".dll"
@@ -1303,7 +1220,6 @@ if __name__ == '__main__':
     
     generate_signing_script()
     generate_driver_wxs(outbuilds)
-    print("--------------------huhu-----------------------------------------")
     make_driver_msm(outbuilds) 
     
     make_mgmtagent_msi(outbuilds,signname)
