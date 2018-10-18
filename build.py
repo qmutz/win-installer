@@ -103,9 +103,10 @@ def sign(filename, signname, additionalcert=None, signstr=None):
         try: 
             if signstr == None:
                 if additionalcert == None:
+                    print("signname. " + signname + ", filename: " + filename)
                     callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, filename])
                 else:
-                    callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, "/ac", "c:\\MSCV-VSClass3.cer", filename])
+                    callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, "/ac", "C:\\Program Files (x86)\\Windows Kits\\8.0\\CrossCertificates\\ctnca.crt", "/fd", "sha256", filename])
             else:
                 callfn(signstr+" "+filename)
         except:
@@ -121,7 +122,7 @@ def sign_builds(outbuilds):
     os.chdir(outbuilds)
     if signfiles:
         for afile in agenttosign:
-            sign(afile, signname, signstr=signstr)
+            sign(afile, signname)
     os.chdir(cwd)
 
 def signdrivers(pack, signname, arch, additionalcert, signstr=None, crosssignstr=None):
@@ -162,11 +163,11 @@ def signdrivers(pack, signname, arch, additionalcert, signstr=None, crosssignstr
 
     for afile in additionalcertfiles:
         if (os.path.isfile(afile)):
-            sign(afile, signname, additionalcert, signstr=crosssignstr)
+            sign(afile, signname, additionalcert)
 
     for afile in noadditionalcertfiles:
         if (os.path.isfile(afile)):
-            sign(afile, signname, signstr=signstr)
+            sign(afile, signname)
 
 
 
@@ -503,8 +504,8 @@ def driverarchfiles_wxs(pack, driver, arch):
     return wxsfile
 
 agenttosign = [
-    'BrandSupport\\brandsat.dll',
-    'BrandSupport\\BrandSupport.dll',
+    #'BrandSupport\\brandsat.dll',
+    #'BrandSupport\\BrandSupport.dll',
     'installwizard\\netsettings\\Win32\\netsettings.exe',
     'installwizard\\netsettings\\x64\\netsettings.exe',
     'installwizard\\qnetsettings\\Win32\\qnetsettings.exe',
@@ -741,10 +742,10 @@ def make_mgmtagent_msi(pack,signname):
     shutil.copy(pack+"\\Setup\\Setup.exe", "installer") 
 
     if signfiles:
-        for signname in signinstallers:
-            sign("installer\\"+branding.filenames[signname], signname, signstr=singlesignstr)
-        for signname in dualsigninstallers:
-            sign("installer\\"+branding.filenames[signname], signname, signstr=signstr)
+        for signname2 in signinstallers:
+            sign("installer\\"+branding.filenames[signname2], signname)
+        for signname2 in dualsigninstallers:
+            sign("installer\\"+branding.filenames[signname2], signname)
 
     # Write updates.tsv (url\tversion\tsize\tarch)
     f = open(os.sep.join(['installer','updates.tsv']),"w")
@@ -1169,6 +1170,7 @@ if __name__ == '__main__':
             argptr +=2
             continue
 
+    print("before_headers")
     make_header(outbuilds)
 
     rebuild_installers_only = False
@@ -1197,6 +1199,7 @@ if __name__ == '__main__':
     if not rebuild_installers_only :
         if (signfiles):
             if not all_drivers_signed:
+                print("huhu")
                 signdrivers(location, signname, 'x86', additionalcert, signstr=signstr, crosssignstr=crosssignstr)
                 signdrivers(location, signname, 'x64', additionalcert, signstr=signstr, crosssignstr=crosssignstr)
                 signcatfiles(location, signname, 'x86', additionalcert, signstr=crosssignstr)
