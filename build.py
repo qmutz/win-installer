@@ -104,7 +104,7 @@ def sign(filename, signname, additionalcert=None, signstr=None):
             if signstr == None:
                 if additionalcert == None:
                     print("signname. " + signname + ", filename: " + filename)
-                    callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, filename])
+                    callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, "/fd", "sha256", filename])
                 else:
                     callfn([signtool, "sign", "/a", "/s", "my", "/n", signname, "/t", timestamp, "/ac", "C:\\Program Files (x86)\\Windows Kits\\8.0\\CrossCertificates\\ctnca.crt", "/fd", "sha256", filename])
             else:
