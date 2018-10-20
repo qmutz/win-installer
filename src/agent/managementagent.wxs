@@ -355,18 +355,18 @@
                   Property="HOSTTIME"
                   Value="[HOSTTIME64]"
                   Execute="firstSequence" />
-	<CustomAction Id="RegisterUpdateTask"
-				  FileKey="ManagementAgentUpdaterExe"
-				  ExeCommand="add"
-				  Execute="deferred"
-				  Impersonate="no"
-				  Return="ignore" />
-	<CustomAction Id="DeregisterUpdateTask"
-				  FileKey="ManagementAgentUpdaterExe"
-				  ExeCommand="remove"
-				  Execute="deferred"
-				  Impersonate="no"
-				  Return="ignore" />
+	<!-- <CustomAction Id="RegisterUpdateTask" -->
+				  <!-- FileKey="ManagementAgentUpdaterExe" -->
+				  <!-- ExeCommand="add" -->
+				  <!-- Execute="deferred" -->
+				  <!-- Impersonate="no" -->
+				  <!-- Return="ignore" /> -->
+	<!-- <CustomAction Id="DeregisterUpdateTask" -->
+				  <!-- FileKey="ManagementAgentUpdaterExe" -->
+				  <!-- ExeCommand="remove" -->
+				  <!-- Execute="deferred" -->
+				  <!-- Impersonate="no" -->
+				  <!-- Return="ignore" /> -->
 
 
     <CustomAction Id="SetREBOOTOPTION" Property="REBOOTOPTION" Value="DEFAULT" />
@@ -491,12 +491,12 @@
         <Custom Action="SetFromCmdLineHosttime" After="AppSearch">
             CMDLINE_HOSTTIME
         </Custom>
-		 <Custom Action="DeregisterUpdateTask" Before="RemoveFiles">
-			Installed
-		 </Custom>
-		 <Custom Action="RegisterUpdateTask" After="InstallFiles">
-			NOT Installed
-        </Custom>
+		 <!-- <Custom Action="DeregisterUpdateTask" Before="RemoveFiles"> -->
+			<!-- Installed -->
+		 <!-- </Custom> -->
+		 <!-- <Custom Action="RegisterUpdateTask" After="InstallFiles"> -->
+			<!-- NOT Installed -->
+        <!-- </Custom> -->
         <Custom Action="noRegAutoUpdate" Before="SetREBOOTOPTION">
             ALLOWAUTOUPDATE="NO"
         </Custom>
@@ -571,14 +571,14 @@
 
             <Component Id='dotnetagentsupport' Guid='$(var.supportid)'>
                 <File Id="XenDPrivExe" Name="$(var.FILENAME_dpriv)" Source="xenguestagent\xendpriv\XenDPriv.exe" />
-                <File Id="ManagementAgentUpdaterExe" Name="ManagementAgentUpdater.exe" Source="xenguestagent\xenupdater\ManagementAgentUpdater.exe" />
+                <!-- <File Id="ManagementAgentUpdaterExe" Name="ManagementAgentUpdater.exe" Source="xenguestagent\xenupdater\ManagementAgentUpdater.exe" /> -->
                 <File Id='XenDprivExeConfig' Name="$(var.FILENAME_dprivcfg)" Source='xenguestagent\xendpriv\XenDpriv.Exe.Config' />
                 <File Id='XenGuestAgentExeConfig' Name="$(var.FILENAME_agentcfg)" Source='xenguestagent\xenguestagent\XenGuestAgent.Exe.Config' />
                 <File Id='InstallAgentExeConfig' Name="InstallAgent.exe.config" Source='InstallAgent\InstallAgent.exe.config' />
                 <File Id="XenGuestLibDll" Name="XenGuestLib.Dll" Source="xenguestagent\xenguestagent\XenGuestLib.Dll" />
                 <File Id="InteropNetFwTypeLibdll" Name="Interop.NetFwTypeLib.dll" Source="xenguestagent\xenguestagent\Interop.NetFwTypeLib.dll" />
-                <File Id="InteropTaskSchedulerdll" Name="Interop.TaskScheduler.dll" Source="xenguestagent\xenupdater\Interop.TaskScheduler.dll" />
-                <File Id='ManagementAgentUpdaterExeConfig' Name="ManagementAgentUpdater.Exe.Config" Source='xenguestagent\xenupdater\ManagementAgentUpdater.Exe.Config' />
+                <!-- <File Id="InteropTaskSchedulerdll" Name="Interop.TaskScheduler.dll" Source="xenguestagent\xenupdater\Interop.TaskScheduler.dll" /> -->
+                <!-- <File Id='ManagementAgentUpdaterExeConfig' Name="ManagementAgentUpdater.Exe.Config" Source='xenguestagent\xenupdater\ManagementAgentUpdater.Exe.Config' /> -->
                 <File Id='UninstallerExeConfig' Name="Uninstall.Exe.Config" Source='Uninstall\Uninstall.exe.config' />
                 <File Id='UninstallerExe' Name="Uninstall.Exe" Source='Uninstall\Uninstall.Exe' />
             </Component>
