@@ -129,7 +129,6 @@ filenames_in_msi_to_sign = [
     'installwizard\\qnetsettings\\Win32\\qnetsettings.exe',
     'installwizard\\qnetsettings\\x64\\qnetsettings.exe',
     "xenguestagent\\xendpriv\\XenDPriv.exe",
-    "xenguestagent\\xenupdater\\ManagementAgentUpdater.exe",
     "xenguestagent\\xenguestagent\\XenGuestLib.Dll" ,
     "xenguestagent\\xenguestagent\\Interop.NetFwTypeLib.dll", 
     "xenguestagent\\xenupdater\\Interop.TaskScheduler.dll",
