@@ -703,12 +703,12 @@
               <RegistryValue Type='string' Name='HostTime' Value='[HOSTTIME]' />
           </RegistryKey>
       </Component>
-     <!--  <Component Id="AutoUpdateReg" Guid="*">
+      <Component Id="AutoUpdateReg" Guid="*">
           <RegistryKey Root="HKLM" Key='Software\XCP-ng\XenTools\AutoUpdate'>
               <RegistryValue Type="string" Name="InstallDrivers" Value='[ALLOWDRIVERUPDATE]' />
-              <RegistryValue Type="string" Name="Identify" Value='[IDENTIFYAUTOUPDATE]' />
+              <!-- <RegistryValue Type="string" Name="Identify" Value='[IDENTIFYAUTOUPDATE]' /> -->
           </RegistryKey>
-      </Component> -->
+      </Component> 
       <Component Id="InstallAgentReg" Guid="15382399-a381-4ff1-8f8d-10ab8a31512e">
           <RegistryKey Root="HKLM"
               Key='$(var.BRANDING_installAgentRegKey)'>
