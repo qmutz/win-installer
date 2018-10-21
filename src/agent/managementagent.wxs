@@ -621,7 +621,7 @@
                       Wait='yes' />
               </Component>
 
-            <!--   <Component Id="InstallService" Guid="*">
+            <Component Id="InstallService" Guid="*">
                   <File Id='InstallAgent.exe' Name='InstallAgent.exe' Source="InstallAgent\InstallAgent.exe" />
                   <ServiceInstall Id='InstallServiceInstaller'
                       Type='ownProcess'
@@ -643,7 +643,7 @@
                       Remove='uninstall' 
                       Name='$(var.BRANDING_installAgentShort)'
                       Wait='yes' />
-              </Component> -->
+              </Component>
 
               <Component Id="DifXAPIDLL64" Guid="*">
                   <File Id="difxapi64" Name="difxapi64.dll" Source="$(env.KIT)\Redist\DIFx\DIFxAPI\x64\difxapi.dll" />
@@ -776,8 +776,8 @@
             <ComponentRef Id="InstallAgentReg32" />
         <?endif ?>
         <ComponentRef Id='InstallAgentReg'/>
-        <!-- <ComponentRef Id='InstallService' /> -->
-        <!-- <ComponentRef Id='AutoUpdateReg' /> -->
+        <ComponentRef Id='InstallService' />
+        <ComponentRef Id='AutoUpdateReg' />
     </Feature>
     <?if $(sys.BUILDARCH)=x86 ?>
         <Feature Id="NotUsed" Level='0'>

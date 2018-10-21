@@ -1067,12 +1067,12 @@ if __name__ == '__main__':
 
     basedir = os.getcwd()
 
-    os.environ['MAJOR_VERSION'] = '7'
-    os.environ['MINOR_VERSION'] = '1'
-    os.environ['MICRO_VERSION'] = '0'
+    os.environ['MAJOR_VERSION'] = '8'
+    os.environ['MINOR_VERSION'] = '2'
+    os.environ['MICRO_VERSION'] = '2'
 
     if 'BUILD_NUMBER' not in os.environ.keys():
-        os.environ['BUILD_NUMBER'] = '0'
+        os.environ['BUILD_NUMBER'] = '102'
 
     if 'UPDATE_URL' not in os.environ.keys():
         os.environ['UPDATE_URL'] = ""
