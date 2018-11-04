@@ -24,6 +24,7 @@ namespace vmcleaner
                 Console.Out.WriteLine(" > Clean up after ourselves");
                 Console.Out.WriteLine("   > Legacy");
                 PVDriversPurge.CleanUpXenLegacy();
+                PVDriversPurge.CleanUpXenLegacy_XCP_ng();
                 Console.Out.WriteLine("   > Services");
                 PVDriversPurge.CleanUpServices();
                 Console.Out.WriteLine("   > Driver Files");

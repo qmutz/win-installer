@@ -474,6 +474,7 @@ namespace InstallAgent
             if (!Installer.GetFlag(Installer.States.CleanedUp))
             {
                 PVDriversPurge.CleanUpXenLegacy();
+                PVDriversPurge.CleanUpXenLegacy_XCP_ng();
                 PVDriversPurge.CleanUpServices();
                 PVDriversPurge.CleanUpDriverFiles();
                 Installer.SetFlag(Installer.States.CleanedUp);

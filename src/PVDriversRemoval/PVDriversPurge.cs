@@ -18,27 +18,27 @@ namespace PVDriversRemoval
         // on a system. The ordering is deliberate, so that the
         // device tree(s) will be walked from children to root.
         private static readonly string[] pvHwIds = {
-            @"XENVIF\VEN_XCPng0001&DEV_NET",
-            @"XENVIF\VEN_XCPng0002&DEV_NET",
-            @"XENVIF\VEN_XCPngC000&DEV_NET",
+            @"XENVIF\VEN_XS0001&DEV_NET",
+            @"XENVIF\VEN_XS0002&DEV_NET",
+            @"XENVIF\VEN_XSC000&DEV_NET",
             @"XENVIF\DEVICE",
 
-            @"XENBUS\VEN_XCPng0001&DEV_VIF",
-            @"XENBUS\VEN_XCPng0002&DEV_VIF",
-            @"XENBUS\VEN_XCPngC000&DEV_VIF",
+            @"XENBUS\VEN_XS0001&DEV_VIF",
+            @"XENBUS\VEN_XS0002&DEV_VIF",
+            @"XENBUS\VEN_XSC000&DEV_VIF",
             @"XEN\VIF",
             @"XENBUS\CLASS&VIF",
             @"XENBUS\CLASS_VIF",
 
-            @"XENBUS\VEN_XCPng0001&DEV_VBD",
-            @"XENBUS\VEN_XCPng0002&DEV_VBD",
-            @"XENBUS\VEN_XCPngC000&DEV_VBD",
+            @"XENBUS\VEN_XS0001&DEV_VBD",
+            @"XENBUS\VEN_XS0002&DEV_VBD",
+            @"XENBUS\VEN_XSC000&DEV_VBD",
             @"XENBUS\CLASS&VBD",
             @"XENBUS\CLASS_VBD",
 
-            @"XENBUS\VEN_XCPng0001&DEV_IFACE",
-            @"XENBUS\VEN_XCPng0002&DEV_IFACE",
-            @"XENBUS\VEN_XCPngC000&DEV_IFACE",
+            @"XENBUS\VEN_XS0001&DEV_IFACE",
+            @"XENBUS\VEN_XS0002&DEV_IFACE",
+            @"XENBUS\VEN_XSC000&DEV_IFACE",
             @"XENBUS\CLASS&IFACE",
             @"XENBUS\CLASS_IFACE",
 
@@ -47,7 +47,29 @@ namespace PVDriversRemoval
             @"PCI\VEN_5853&DEV_C000",
             @"PCI\VEN_fffd&DEV_0101",
 
-            @"ROOT\XENEVTCHN"
+            @"ROOT\XENEVTCHN",
+
+
+            /* XCP-ng Stuff */
+            @"XENVIF\VEN_XCPng0001&DEV_NET",
+            @"XENVIF\VEN_XCPng0002&DEV_NET",
+            @"XENVIF\VEN_XCPngC000&DEV_NET",
+            
+
+            @"XENBUS\VEN_XCPng0001&DEV_VIF",
+            @"XENBUS\VEN_XCPng0002&DEV_VIF",
+            @"XENBUS\VEN_XCPngC000&DEV_VIF",
+            
+
+            @"XENBUS\VEN_XCPng0001&DEV_VBD",
+            @"XENBUS\VEN_XCPng0002&DEV_VBD",
+            @"XENBUS\VEN_XCPngC000&DEV_VBD",
+            
+            @"XENBUS\VEN_XCPng0001&DEV_IFACE",
+            @"XENBUS\VEN_XCPng0002&DEV_IFACE",
+            @"XENBUS\VEN_XCPngC000&DEV_IFACE",
+            
+            @"PCI\VEN_5853&DEV_C200" // XCP-ng Windows Update Device
         };
 
         public static void RemovePVDriversFromFilters()
@@ -199,13 +221,23 @@ namespace PVDriversRemoval
             // msi refuses to uninstall if the '/norestart' flag is
             // given (although it returns ERROR_SUCCESS)
             var msiList = new[] {
-                new { name = Branding.GetString("BRANDING_installerProductName"), //"Citrix XenServer Tools Installer",
+                new { name = "Citrix XenServer Tools Installer",
                       args = "/qn"},
-                new { name = Branding.GetString("BRANDING_vssLong"), //""Citrix XenServer VSS Provider",
+                new { name = "Citrix XenServer VSS Provider",
                       args = "/qn /norestart"},
-                new { name = Branding.GetString("BRANDING_hypervisorAndOs")+" x64 "+Branding.GetString("BRANDING_pvDrivers"), // "Citrix Xen Windows x64 PV Drivers",
+                new { name = "Citrix Xen Windows x64 PV Drivers",
                       args = "/qn /norestart"},
-                new { name = Branding.GetString("BRANDING_hypervisorAndOs")+" x86 "+Branding.GetString("BRANDING_pvDrivers"), // "Citrix Xen Windows x86 PV Drivers",
+                new { name = "Citrix Xen Windows x86 PV Drivers",
+                      args = "/qn /norestart"},
+
+                      /* XCP-ng Stuff */
+                new { name = Branding.GetString("BRANDING_installerProductName"),
+                      args = "/qn"},
+                new { name = Branding.GetString("BRANDING_vssLong"),
+                      args = "/qn /norestart"},
+                new { name = Branding.GetString("BRANDING_hypervisorAndOs")+" x64 "+Branding.GetString("BRANDING_pvDrivers"),
+                      args = "/qn /norestart"},
+                new { name = Branding.GetString("BRANDING_hypervisorAndOs")+" x86 "+Branding.GetString("BRANDING_pvDrivers"),
                       args = "/qn /norestart"},
             };
 
@@ -244,6 +276,54 @@ namespace PVDriversRemoval
         }
 
         public static void CleanUpXenLegacy()
+        // Cleans up leftover Xen Legacy registry entries and files
+        {
+            const string SOFTWARE = "SOFTWARE";
+            const string WOW6432NODE = @"\Wow6432Node";
+            const string UNINSTALL =
+                @"\Microsoft\Windows\CurrentVersion\Uninstall";
+            const string CITRIX_XENTOOLS = @"\Citrix\XenTools";
+            const string INSTALL_DIR = @"\Install_Dir";
+
+            string rk1Path;
+            string rk2Path;
+            string tmpPath;
+
+            if (WinVersion.Is64BitOS())
+            {
+                rk1Path = SOFTWARE + WOW6432NODE + UNINSTALL;
+                tmpPath = SOFTWARE + WOW6432NODE + CITRIX_XENTOOLS;
+            }
+            else
+            {
+                rk1Path = SOFTWARE + UNINSTALL;
+                tmpPath = SOFTWARE + CITRIX_XENTOOLS;
+            }
+
+            rk2Path = tmpPath + INSTALL_DIR;
+
+            try
+            {
+                Registry.LocalMachine.OpenSubKey(
+                    rk1Path,
+                    true
+                ).DeleteSubKeyTree("Citrix XenTools");
+            }
+            catch (ArgumentException) { }
+
+            string installDir = (string)Registry.LocalMachine.GetValue(
+                rk2Path
+            );
+
+            try
+            {
+                Directory.Delete(installDir, true);
+            }
+            catch (DirectoryNotFoundException) { }
+            catch (ArgumentNullException) { }
+        }
+
+        public static void CleanUpXenLegacy_XCP_ng()
         // Cleans up leftover Xen Legacy registry entries and files
         {
             const string SOFTWARE = "SOFTWARE";
